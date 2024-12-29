@@ -20,5 +20,5 @@ from radio import views as radio_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('radio/', include('radio.urls')),
+    path('', include('radio.urls')),
 ]
