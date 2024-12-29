@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'radio/css/index.css' %}" rel="stylesheet">
+  <title>MP3 シークバー</title>
+</head>
+<body>
+  <div class="container">
+    <h1>MP3 プレーヤー</h1>
+    <audio id="audio-player" controls>
+      <source src="{% static 'radio/audio/001.mp3' %}" type="audio/mpeg">
+      お使いのブラウザは audio タグをサポートしていません。
+    </audio>
+    <input type="range" id="seek-bar" min="0" max="100" value="0">
+    <p id="current-time">再生時間: 0:00</p>
+  </div>
+
+  <script>
+    // 要素を取得
+    const audioPlayer = document.getElementById("audio-player");
+    const seekBar = document.getElementById("seek-bar");
+    const currentTimeDisplay = document.getElementById("current-time");
+
+    // 音声のメタデータが読み込まれたらシークバーの最大値を設定
+    audioPlayer.addEventListener("loadedmetadata", () => {
+      seekBar.max = audioPlayer.duration;
+    });
+
+    // シークバーをドラッグして指定時間にジャンプ
+    seekBar.addEventListener("input", () => {
+      audioPlayer.currentTime = seekBar.value;
+    });
+
+    // 音声の再生時間に応じてシークバーを更新
+    audioPlayer.addEventListener("timeupdate", () => {
+      seekBar.value = audioPlayer.currentTime;
+      const minutes = Math.floor(audioPlayer.currentTime / 60);
+      const seconds = Math.floor(audioPlayer.currentTime % 60).toString().padStart(2, "0");
+      currentTimeDisplay.textContent = `再生時間: ${minutes}:${seconds}`;
+    });
+  </script>
+</body>
+</html>

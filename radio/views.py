@@ -5,3 +5,5 @@ from django.http import HttpResponse
 def index(request):
     return render(request, 'radio/index.html')
 
+def play(request):
+    return render(request, 'radio/play.html')
