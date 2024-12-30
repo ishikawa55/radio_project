@@ -1,10 +1,9 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="{% static 'radio/css/index.css' %}" rel="stylesheet">
+  <link href="../css/index.css" rel="stylesheet">
   <title>MP3 シークバー</title>
 </head>
 <body>
@@ -12,7 +11,7 @@
     <div class="container">
         <h1 class="title">くりぃむしちゅー</h1>
         <div class="menu">
-            <button class="menu-item" onclick="location.href='{% url 'play' %}'">
+            <button class="menu-item" onclick="location.href='play.html'">
                 <span class="menu-icon">📝</span>
                 <span class="menu-text">クイズに挑戦</span>
             </button>
