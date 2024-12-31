@@ -77,15 +77,15 @@ body {
     margin-left: 10px;
     font-size: 1.5rem;
   }
-  
+ 
   .favorite {
     color: gold;
+    cursor: pointer;
   }
-  
   .not-favorite {
     color: gray;
+    cursor: pointer;
   }
-  
   
   .side-curtain {
     position: fixed;

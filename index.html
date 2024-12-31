@@ -4,17 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/index.css" rel="stylesheet">
+  <script src="js/index.js"></script>
   <title>home</title>
-  <style>
-    .favorite {
-      color: gold;
-      cursor: pointer;
-    }
-    .not-favorite {
-      color: gray;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
   <div class="side-curtain left-curtain"></div>
@@ -47,74 +38,5 @@
     </div>
   </div>
   <div class="side-curtain right-curtain"></div>
-
-  <script>
-    // お気に入りの状態を保持するオブジェクト
-    const favorites = {};
-
-    // お気に入りのみ表示する状態
-    let showOnlyFavorites = false;
-
-    // 要素を取得
-    const searchBar = document.getElementById("search-bar");
-    const menuList = document.getElementById("menu-list");
-    const menuItems = menuList.getElementsByClassName("menu-item");
-    const favoriteToggle = document.getElementById("favorite-toggle");
-
-    // 検索バーの入力イベントを監視
-    searchBar.addEventListener("input", filterMenu);
-
-    // お気に入りのみ表示ボタンのクリックイベントを監視
-    favoriteToggle.addEventListener("click", () => {
-        showOnlyFavorites = !showOnlyFavorites;
-        favoriteToggle.textContent = showOnlyFavorites ? "全て表示" : "お気に入りのみ";
-        filterMenu();
-    });
-
-    // 星マークをクリックしたときのお気に入り切り替え機能
-    document.querySelectorAll(".favorite-icon").forEach(icon => {
-        icon.addEventListener("click", (event) => {
-            event.stopPropagation(); // 親のクリックイベントを防ぐ
-            const id = icon.getAttribute("data-id");
-            favorites[id] = !favorites[id]; // お気に入り状態を反転
-            updateFavorites();
-            filterMenu(); // 状態変更後に再度フィルタリングを実行
-        });
-    });
-
-    // お気に入りアイコンの状態を更新
-    function updateFavorites() {
-        document.querySelectorAll(".favorite-icon").forEach(icon => {
-            const id = icon.getAttribute("data-id");
-            if (favorites[id]) {
-                icon.classList.remove("not-favorite");
-                icon.classList.add("favorite");
-            } else {
-                icon.classList.remove("favorite");
-                icon.classList.add("not-favorite");
-            }
-        });
-    }
-
-    // メニューをフィルタリング
-    function filterMenu() {
-        const query = searchBar.value.toLowerCase();
-
-        Array.from(menuItems).forEach(item => {
-            const text = item.textContent.toLowerCase();
-            const id = item.getAttribute("data-id");
-            const isFavorite = favorites[id];
-
-            const matchesSearch = text.includes(query);
-            const matchesFavorite = showOnlyFavorites ? isFavorite : true;
-
-            if (matchesSearch && matchesFavorite) {
-                item.style.display = ""; // 表示
-            } else {
-                item.style.display = "none"; // 非表示
-            }
-        });
-    }
-  </script>
 </body>
 </html>
