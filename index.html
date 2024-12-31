@@ -4,19 +4,117 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/index.css" rel="stylesheet">
-  <title>MP3 シークバー</title>
+  <title>home</title>
+  <style>
+    .favorite {
+      color: gold;
+      cursor: pointer;
+    }
+    .not-favorite {
+      color: gray;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <div class="side-curtain left-curtain"></div>
-    <div class="container">
-        <h1 class="title">くりぃむANN</h1>
-        <div class="menu">
-            <button class="menu-item" onclick="location.href='html/play.html'">
-                <span class="menu-icon">📝</span>
-                <span class="menu-text">第1回</span>
-            </button>
-        </div>
+  <div class="side-curtain left-curtain"></div>
+  <div class="container">
+    <h1 class="title">くりぃむANN</h1>
+
+    <!-- 検索バー -->
+    <div class="search-container">
+      <input type="text" id="search-bar" placeholder="放送回を検索">
+      <button id="favorite-toggle">お気に入りのみ</button>
     </div>
-    <div class="side-curtain right-curtain"></div>
+
+    <!-- メニュー -->
+    <div class="menu" id="menu-list">
+      <div class="menu-item" data-id="1">
+        <button onclick="location.href='html/001.html'">
+          <span class="menu-text">第1回</span>
+        </button>
+        <span class="favorite-icon not-favorite" onclick="toggleFavorite(1)">★</span>
+      </div>
+      <div class="menu-item" data-id="2">
+        <button onclick="location.href='html/002.html'">
+          <span class="menu-text">第2回</span>
+        </button>
+        <span class="favorite-icon not-favorite" onclick="toggleFavorite(2)">★</span>
+      </div>
+      <div class="menu-item" data-id="3">
+        <button onclick="location.href='html/003.html'">
+          <span class="menu-text">第3回</span>
+        </button>
+        <span class="favorite-icon not-favorite" onclick="toggleFavorite(3)">★</span>
+      </div>
+      <!-- 他の放送回もここに追加 -->
+    </div>
+  </div>
+  <div class="side-curtain right-curtain"></div>
+
+  <script>
+    // お気に入り状態を保持するオブジェクト
+    const favorites = {};
+
+    // 要素を取得
+    const searchBar = document.getElementById("search-bar");
+    const menuList = document.getElementById("menu-list");
+    const menuItems = menuList.getElementsByClassName("menu-item");
+    const favoriteToggle = document.getElementById("favorite-toggle");
+
+    let showOnlyFavorites = false;
+
+    // 検索バーの入力イベントを監視
+    searchBar.addEventListener("input", filterMenu);
+
+    // お気に入りのみを表示ボタンのクリックイベントを監視
+    favoriteToggle.addEventListener("click", () => {
+      showOnlyFavorites = !showOnlyFavorites;
+      favoriteToggle.textContent = showOnlyFavorites ? "全て表示" : "お気に入りのみ";
+      filterMenu();
+    });
+
+    // お気に入りの状態を切り替える
+    function toggleFavorite(id) {
+      favorites[id] = !favorites[id]; // お気に入り状態を反転
+      updateFavorites();
+      filterMenu();
+    }
+
+    // お気に入りアイコンの状態を更新
+    function updateFavorites() {
+      Array.from(menuItems).forEach(item => {
+        const id = item.getAttribute("data-id");
+        const icon = item.querySelector(".favorite-icon");
+        if (favorites[id]) {
+          icon.classList.remove("not-favorite");
+          icon.classList.add("favorite");
+        } else {
+          icon.classList.remove("favorite");
+          icon.classList.add("not-favorite");
+        }
+      });
+    }
+
+    // メニューをフィルタリング
+    function filterMenu() {
+      const query = searchBar.value.toLowerCase();
+
+      Array.from(menuItems).forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const id = item.getAttribute("data-id");
+        const isFavorite = favorites[id];
+
+        const matchesSearch = text.includes(query);
+        const matchesFavorite = showOnlyFavorites ? isFavorite : true;
+
+        if (matchesSearch && matchesFavorite) {
+          item.style.display = ""; // 表示
+        } else {
+          item.style.display = "none"; // 非表示
+        }
+      });
+    }
+  </script>
 </body>
 </html>
