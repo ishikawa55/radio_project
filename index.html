@@ -14,26 +14,20 @@
 
     <!-- 検索バー -->
     <div class="search-container">
-      <input type="text" id="search-bar" placeholder="放送回を検索">
-      <button id="favorite-toggle">お気に入りのみ</button>
+      <input type="text" id="search-bar" placeholder="検索..." oninput="filterBySearch()">
+      <button id="favorite-filter" onclick="toggleFavoriteFilter()">お気に入りのみ</button>
     </div>
 
     <!-- メニュー -->
     <div class="menu" id="menu-list">
-        <div class="menu">
             <button class="menu-item" onclick="location.href='html/001.html'">
-              <span class="menu-text">第1回</span>
-              <span class="favorite-icon not-favorite" data-id="1">★</span>
+                <span class="menu-text">第1回</span>
+                <span class="favorite-icon not-favorite" data-id="1" onclick="toggleFavorite(1, event)">★</span>
             </button>
             <button class="menu-item" onclick="location.href='html/002.html'">
-              <span class="menu-text">第2回</span>
-              <span class="favorite-icon not-favorite" data-id="2">★</span>
+                <span class="menu-text">第2回</span>
+                <span class="favorite-icon not-favorite" data-id="2" onclick="toggleFavorite(2, event)">★</span>
             </button>
-            <button class="menu-item" onclick="location.href='html/003.html'">
-              <span class="menu-text">第3回</span>
-              <span class="favorite-icon not-favorite" data-id="3">★</span>
-            </button>
-          </div>
       <!-- 他の放送回もここに追加 -->
     </div>
   </div>

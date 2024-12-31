@@ -1,71 +1,110 @@
-// お気に入りの状態を保持するオブジェクト
-const favorites = {};
+let showOnlyFavorites = false; // お気に入りフィルタの状態管理
 
-// 要素を取得
-const searchBar = document.getElementById("search-bar");
-const menuList = document.getElementById("menu-list");
-// const menuItems = menuList.getElementsByClassName("menu-item");
-const favoriteToggle = document.getElementById("favorite-toggle");
-const favoriteIcons = document.querySelectorAll(".favorite-icon");
-
-// お気に入りのみ表示する状態
-let showOnlyFavorites = false;
-
-// 検索バーの入力イベントを監視
-searchBar.addEventListener("input", filterMenu);
-
-// お気に入りのみ表示ボタンのクリックイベントを監視
-favoriteToggle.addEventListener("click", () => {
-    showOnlyFavorites = !showOnlyFavorites;
-    favoriteToggle.textContent = showOnlyFavorites ? "全て表示" : "お気に入りのみ";
-    filterMenu();
+// ページ読み込み時の初期化処理
+document.addEventListener("DOMContentLoaded", () => {
+  restoreFavorites();
+  if (showOnlyFavorites) {
+    applyFavoriteFilter();
+  }
 });
 
-// 星アイコンをクリックしたときのお気に入り切り替え機能
-favoriteIcons.forEach(icon => {
-    icon.addEventListener("click", (event) => {
-        event.stopPropagation(); // 親のクリックイベントを防ぐ
-        const id = icon.getAttribute("data-id"); // クリックされたアイコンのIDを取得
-        toggleFavorite(id); // お気に入りの状態を切り替える
-    });
-});
+// お気に入りのトグル
+function toggleFavorite(id, event) {
+  event.stopPropagation(); // 親ボタンへのクリックイベントを防止
+  const icon = document.querySelector(`.favorite-icon[data-id="${id}"]`);
+  const isFavorite = icon.classList.contains("favorite");
 
-// お気に入りの状態を切り替える
-function toggleFavorite(id) {
-    favorites[id] = !favorites[id]; // お気に入り状態を反転
-    updateFavorites();
-    filterMenu(); // 状態変更後に再度フィルタリングを実行
+  if (isFavorite) {
+    icon.classList.remove("favorite");
+    icon.classList.add("not-favorite");
+    updateFavoriteInStorage(id, false);
+  } else {
+    icon.classList.remove("not-favorite");
+    icon.classList.add("favorite");
+    updateFavoriteInStorage(id, true);
+  }
 }
 
-// お気に入りアイコンの状態を更新
-function updateFavorites() {
-    document.querySelectorAll(".favorite-icon").forEach(icon => {
-        const id = icon.getAttribute("data-id");
-        if (favorites[id]) {
-            icon.classList.remove("not-favorite");
-            icon.classList.add("favorite");
-        } else {
-            icon.classList.remove("favorite");
-            icon.classList.add("not-favorite");
-        }
-    });
+// ローカルストレージにお気に入り状態を保存
+function updateFavoriteInStorage(id, isFavorite) {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || {};
+  favorites[id] = isFavorite;
+  localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
-// メニューをフィルタリング
-function filterMenu() {
-    const query = searchBar.value.toLowerCase();
-    const menuItems = document.querySelectorAll(".menu-item");
-    menuItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        const id = item.querySelector(".favorite-icon").getAttribute("data-id");
-        const isFavorite = favorites[id];
-        const matchesSearch = text.includes(query);
-        const matchesFavorite = showOnlyFavorites ? isFavorite : true;
-        if (matchesSearch && matchesFavorite) {
-            item.style.display = "";
-        } else {
-            item.style.display = "none";
-        }
-    });
+// お気に入り状態を復元
+function restoreFavorites() {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || {};
+  for (const [id, isFavorite] of Object.entries(favorites)) {
+    const icon = document.querySelector(`.favorite-icon[data-id="${id}"]`);
+    if (icon) {
+      if (isFavorite) {
+        icon.classList.add("favorite");
+        icon.classList.remove("not-favorite");
+      } else {
+        icon.classList.add("not-favorite");
+        icon.classList.remove("favorite");
+      }
+    }
+  }
 }
 
+// 「お気に入りのみ」をトグル
+function toggleFavoriteFilter() {
+  showOnlyFavorites = !showOnlyFavorites;
+  const filterButton = document.getElementById("favorite-filter");
+
+  if (showOnlyFavorites) {
+    filterButton.textContent = "すべて表示";
+    applyFavoriteFilter();
+  } else {
+    filterButton.textContent = "お気に入りのみ";
+    showAllItems();
+  }
+}
+
+// お気に入りフィルタを適用
+function applyFavoriteFilter() {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || {};
+  const menuItems = document.querySelectorAll(".menu-item");
+
+  menuItems.forEach(item => {
+    const favoriteIcon = item.querySelector(".favorite-icon");
+    const id = favoriteIcon.getAttribute("data-id");
+
+    if (favorites[id]) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+
+// すべての項目を表示
+function showAllItems() {
+  const menuItems = document.querySelectorAll(".menu-item");
+  menuItems.forEach(item => {
+    item.style.display = "block";
+  });
+}
+
+// 検索バーのフィルタリング
+function filterBySearch() {
+  const searchText = document.getElementById("search-bar").value.toLowerCase();
+  const menuItems = document.querySelectorAll(".menu-item");
+
+  menuItems.forEach(item => {
+    const menuText = item.querySelector(".menu-text").textContent.toLowerCase();
+
+    if (menuText.includes(searchText)) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+
+  // 「お気に入りのみ」が有効の場合は再適用
+  if (showOnlyFavorites) {
+    applyFavoriteFilter();
+  }
+}
