@@ -65,3 +65,40 @@ audio {
 .menu-text {
     font-size: 1em;
 }
+
+#text {
+    color: #ffffff;
+}
+
+.jump-container {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+#time-input {
+    padding: 5px 10px;
+    font-size: 1em;
+    width: 100px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#jump-button {
+    background-color: #f1074e;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#jump-button:hover {
+    background-color: #c9053d;
+    transform: scale(1.05);
+}
