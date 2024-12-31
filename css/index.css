@@ -1,165 +1,106 @@
-/* リセットCSS */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
+/* ファイル名: css/index.css */
 body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-/* ここからカスタムスタイル */
-body {
-    font-family: Arial, Meiryo, sans-serif;
-    background-color: #f4f4f4;
-    color: #f1074e;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000000; /* 背景を黒に設定 */
+    color: #ffffff; /* テキストを白に設定 */
+  }
+  
+  h1.title {
+    text-align: center;
+    color: #f1074e; /* タイトルをテーマカラーに設定 */
+    font-size: 2.5rem;
+    margin: 20px 0;
+  }
+  
+  .search-container {
     display: flex;
-    justify-content: center; /* 水平方向中央寄せ */
-    align-items: center; /* 垂直方向中央寄せ */
-    min-height: 100vh;
-    overflow-x: hidden; /* 横スクロールを防止 */
-}
-
-.side-curtain {
-    position: fixed;
-    top: 0;
-    width: 20%;
-    height: 100%;
-    z-index: -1; /* 他の要素の背面に配置 */
-}
-
-.left-curtain {
-    left: 0;
-    background-color: #f1074e; /* 左側の幕の色 */
-}
-
-.right-curtain {
-    right: 0;
-    background-color: #f1074e; /* 右側の幕の色 */
-}
-
-.container {
-    text-align: center; /* テキストを中央寄せ */
-    padding: 40px;
-    background-color: #000;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    max-width: 600px; /* コンテナの最大幅を広げる */
-    width: 80%; /* コンテナの幅を調整 */
-    z-index: 1; /* 幕よりも手前に表示 */
-}
-
-.title {
-    font-size: 2.5em;
-    font-weight: 700;
-    margin-bottom: 30px;
-    color: #f1074e;
-}
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 20px 30px; /* ボタンのサイズを大きく */
-    margin: 15px 0; /* マージンを大きく */
+    margin: 20px;
+  }
+  
+  #search-bar {
+    width: 60%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #f1074e;
+    border-radius: 5px;
+    color: #000000;
+  }
+  
+  #favorite-toggle {
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
     background-color: #f1074e;
-    color: white;
     border: none;
     border-radius: 5px;
-    transition: background-color 0.3s;
-    font-size: 1.3em; /* フォントサイズを大きく */
-    text-align: center;
+    color: #ffffff;
     cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-.menu-item:hover {
+  }
+  
+  #favorite-toggle:hover {
+    background-color: #d00643;
+  }
+  
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px;
+    gap: 10px;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 180px;
+    padding: 10px;
+    background-color: #1a1a1a;
+    border: 2px solid #f1074e;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .menu-item:hover {
+    background-color: #2b2b2b;
+  }
+  
+  .menu-item .menu-text {
+    margin-right: auto;
+  }
+  
+  .menu-item .favorite-icon {
+    margin-left: 10px;
+    font-size: 1.5rem;
+  }
+  
+  .favorite {
+    color: gold;
+  }
+  
+  .not-favorite {
+    color: gray;
+  }
+  
+  
+  .side-curtain {
+    position: fixed;
+    top: 0;
+    width: 10px;
+    height: 100%;
     background-color: #f1074e;
-}
-
-.menu-icon {
-    margin-right: 10px;
-    font-size: 1.6em; /* アイコンのサイズを大きく */
-}
-
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    .side-curtain {
-        width: 10%; /* 画面幅が小さい時は幕を細く */
-    }
-
-    .container {
-        width: 95%; /* コンテナの幅を調整 */
-    }
-    
-    .menu-item {
-        font-size: 1.2em;
-        padding: 15px 25px;
-        margin: 10px 0;
-    }
-
-    .menu-icon {
-      font-size: 1.4em;
-    }
-}
-
-@media (max-width: 600px) {
-    .container {
-        padding: 20px;
-    }
-    .title {
-        font-size: 2em;
-    }
-    .menu-item {
-        font-size: 1em;
-        padding: 12px 16px;
-        margin: 8px 0;
-    }
-    .menu-icon{
-        font-size: 1.2em;
-    }
-}
+    z-index: 1000;
+  }
+  
+  .left-curtain {
+    left: 0;
+  }
+  
+  .right-curtain {
+    right: 0;
+  }
+  
