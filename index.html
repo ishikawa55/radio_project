@@ -12,116 +12,33 @@
   <div class="container">
     <h1 class="title">くりぃむANN</h1>
 
-    <!-- 検索バー -->
-    <div class="search-container">
-      <input type="text" id="search-bar" placeholder="検索..." oninput="filterBySearch()">
-      <button id="favorite-filter" onclick="toggleFavoriteFilter()">お気に入りのみ</button>
+    <!-- ハンバーガーボタン -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
 
-    <!-- メニュー -->
-    <div class="menu" id="menu-list">
-            <button class="menu-item" onclick="location.href='html/001.html'">
-                <span class="menu-text">第1回</span>
-                <span class="favorite-icon not-favorite" data-id="1" onclick="toggleFavorite(1, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/002.html'">
-                <span class="menu-text">第2回</span>
-                <span class="favorite-icon not-favorite" data-id="2" onclick="toggleFavorite(2, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/003.html'">
-                <span class="menu-text">第3回</span>
-                <span class="favorite-icon not-favorite" data-id="3" onclick="toggleFavorite(3, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/004.html'">
-                <span class="menu-text">第4回</span>
-                <span class="favorite-icon not-favorite" data-id="4" onclick="toggleFavorite(4, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/005.html'">
-                <span class="menu-text">第5回</span>
-                <span class="favorite-icon not-favorite" data-id="5" onclick="toggleFavorite(5, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/006.html'">
-                <span class="menu-text">第6回</span>
-                <span class="favorite-icon not-favorite" data-id="6" onclick="toggleFavorite(6, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/007.html'">
-                <span class="menu-text">第7回</span>
-                <span class="favorite-icon not-favorite" data-id="7" onclick="toggleFavorite(7, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/008.html'">
-                <span class="menu-text">第8回</span>
-                <span class="favorite-icon not-favorite" data-id="8" onclick="toggleFavorite(8, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/009.html'">
-                <span class="menu-text">第9回</span>
-                <span class="favorite-icon not-favorite" data-id="9" onclick="toggleFavorite(9, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/010.html'">
-                <span class="menu-text">第10回</span>
-                <span class="favorite-icon not-favorite" data-id="10" onclick="toggleFavorite(10, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/011.html'">
-                <span class="menu-text">第11回</span>
-                <span class="favorite-icon not-favorite" data-id="11" onclick="toggleFavorite(11, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/012.html'">
-                <span class="menu-text">第12回</span>
-                <span class="favorite-icon not-favorite" data-id="12" onclick="toggleFavorite(12, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/013.html'">
-                <span class="menu-text">第13回</span>
-                <span class="favorite-icon not-favorite" data-id="13" onclick="toggleFavorite(13, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/014.html'">
-                <span class="menu-text">第14回</span>
-                <span class="favorite-icon not-favorite" data-id="14" onclick="toggleFavorite(14, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/015.html'">
-                <span class="menu-text">第15回</span>
-                <span class="favorite-icon not-favorite" data-id="15" onclick="toggleFavorite(15, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/016.html'">
-                <span class="menu-text">第16回</span>
-                <span class="favorite-icon not-favorite" data-id="16" onclick="toggleFavorite(16, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/017.html'">
-                <span class="menu-text">第17回</span>
-                <span class="favorite-icon not-favorite" data-id="17" onclick="toggleFavorite(17, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/018.html'">
-                <span class="menu-text">第18回</span>
-                <span class="favorite-icon not-favorite" data-id="18" onclick="toggleFavorite(18, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/019.html'">
-                <span class="menu-text">第19回</span>
-                <span class="favorite-icon not-favorite" data-id="19" onclick="toggleFavorite(19, event)">★</span>
-            </button>
-
-            <button class="menu-item" onclick="location.href='html/020.html'">
-                <span class="menu-text">第20回</span>
-                <span class="favorite-icon not-favorite" data-id="20" onclick="toggleFavorite(20, event)">★</span>
-            </button>
-
-      <!-- 他の放送回もここに追加 -->
+    <!-- メニューリスト -->
+    <div class="menu_bar" id="menu_bar">
+        <a href="html/001.html">第1回</a>
+        <a href="#about">会社情報</a>
+        <a href="#services">サービス</a>
+        <a href="#contact">お問い合わせ</a>
     </div>
+
+    <!-- 放送回詳細 -->
+    
+
+    <!-- お気に入りリスト -->
+    <section class="favorites">
+        <h2>お気に入りの放送回</h2>
+        <button id="toggle-favorites" onclick="toggleFavorites()">お気に入りを非表示</button>
+        <ul id="favorites-list">
+        <!-- リストを動的に表示 -->
+        </ul>
+    </section>
+
   </div>
   <div class="side-curtain right-curtain"></div>
 </body>

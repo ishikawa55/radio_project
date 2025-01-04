@@ -1,106 +1,196 @@
 /* ファイル名: css/index.css */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #000000; /* 背景を黒に設定 */
-    color: #ffffff; /* テキストを白に設定 */
-  }
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #000000; /* 背景を黒に設定 */
+  color: #ffffff; /* テキストを白に設定 */
+}
   
-  h1.title {
-    text-align: center;
-    color: #f1074e; /* タイトルをテーマカラーに設定 */
-    font-size: 2.5rem;
-    margin: 20px 0;
-  }
+h1.title {
+  text-align: center;
+  color: #f1074e; /* タイトルをテーマカラーに設定 */
+  font-size: 2.5rem;
+  margin: 20px 0;
+}
+
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
   
-  .search-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px;
-  }
+#search-bar {
+  width: 60%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #f1074e;
+  border-radius: 5px;
+  color: #000000;
+}
   
-  #search-bar {
-    width: 60%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 2px solid #f1074e;
-    border-radius: 5px;
-    color: #000000;
-  }
+#favorite-filter {
+  margin-left: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #f1074e;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+}
   
-  #favorite-filter {
-    margin-left: 10px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #f1074e;
-    border: none;
-    border-radius: 5px;
-    color: #ffffff;
-    cursor: pointer;
-  }
+#favorite-toggle:hover {
+  background-color: #d00643;
+}
   
-  #favorite-toggle:hover {
-    background-color: #d00643;
-  }
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+  gap: 10px;
+}
   
-  .menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 20px;
-    gap: 10px;
-  }
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 180px;
+  padding: 10px;
+  background-color: #1a1a1a;
+  border: 2px solid #f1074e;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+}
   
-  .menu-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 180px;
-    padding: 10px;
-    background-color: #1a1a1a;
-    border: 2px solid #f1074e;
-    border-radius: 8px;
-    color: #ffffff;
-    font-size: 1rem;
-    cursor: pointer;
-  }
+.menu-item:hover {
+  background-color: #2b2b2b;
+}
   
-  .menu-item:hover {
-    background-color: #2b2b2b;
-  }
+.menu-item .menu-text {
+  margin-right: auto;
+}
   
-  .menu-item .menu-text {
-    margin-right: auto;
-  }
-  
-  .menu-item .favorite-icon {
-    margin-left: 10px;
-    font-size: 1.5rem;
-  }
+.menu-item .favorite-icon {
+  margin-left: 10px;
+  font-size: 1.5rem;
+}
  
-  .favorite {
-    color: gold;
-    cursor: pointer;
-  }
-  .not-favorite {
-    color: gray;
-    cursor: pointer;
-  }
+.favorite {
+  color: gold;
+  cursor: pointer;
+}
+
+.not-favorite {
+  color: gray;
+  cursor: pointer;
+}
   
-  .side-curtain {
-    position: fixed;
-    top: 0;
-    width: 10px;
-    height: 100%;
-    background-color: #f1074e;
-    z-index: 1000;
-  }
+/* 画面の両端のライン */
+.side-curtain {
+  position: fixed;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  background-color: #f1074e;
+  z-index: 1000;
+}
   
-  .left-curtain {
-    left: 0;
-  }
+.left-curtain {
+  left: 0;
+}
   
-  .right-curtain {
-    right: 0;
-  }
-  
+.right-curtain {
+  right: 0;
+}
+
+/* ハンバーガーボタンのスタイル */
+.hamburger {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.hamburger div {
+  width: 100%;
+  height: 4px;
+  background-color: #333;
+  margin: 5px 0;
+  transition: all 0.3s ease;
+}
+
+/* メニューバーのスタイル */
+.menu_bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 200px;
+  background-color: #333;
+  color: white;
+  display: none;
+  flex-direction: column;
+  padding: 10px 0;
+  z-index: 999;
+}
+
+.menu_bar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.menu_bar a:hover {
+  background-color: #444;
+}
+
+/* メニューが表示されるとき */
+.menu_bar.active {
+  display: flex;
+}
+
+/* お気に入り表示 */
+#favorites-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+#favorites-list li {
+  cursor: pointer;
+  color: #f1074e;
+  padding: 5px 0;
+}
+
+#favorites-list li:hover {
+  text-decoration: underline;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #f1074e;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #d0053b;
+}

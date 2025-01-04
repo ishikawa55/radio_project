@@ -1,29 +1,60 @@
-let showOnlyFavorites = false; // お気に入りフィルタの状態管理
-
-// ページ読み込み時の初期化処理
 document.addEventListener("DOMContentLoaded", () => {
-  restoreFavorites();
-  if (showOnlyFavorites) {
-    applyFavoriteFilter();
-  }
+  loadFavorites();
 });
 
-// お気に入りのトグル
-function toggleFavorite(id, event) {
-  event.stopPropagation(); // 親ボタンへのクリックイベントを防止
-  const icon = document.querySelector(`.favorite-icon[data-id="${id}"]`);
-  const isFavorite = icon.classList.contains("favorite");
+let favoritesVisible = true; // お気に入り表示状態の管理
 
-  if (isFavorite) {
-    icon.classList.remove("favorite");
-    icon.classList.add("not-favorite");
-    updateFavoriteInStorage(id, false);
+// お気に入りデータを読み込んで表示
+function loadFavorites() {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || {};
+  const favoritesList = document.getElementById("favorites-list");
+  favoritesList.innerHTML = ""; // リストをリセット
+
+  for (const [id, title] of Object.entries(favorites)) {
+    const listItem = document.createElement("li");
+    listItem.textContent = title;
+    listItem.addEventListener("click", () => {
+      location.href = `html/${id}.html`;
+    });
+    favoritesList.appendChild(listItem);
+  }
+
+  updateToggleButton(favorites);
+}
+
+// お気に入りの表示・非表示を切り替え
+function toggleFavorites() {
+  favoritesVisible = !favoritesVisible;
+  const favoritesList = document.getElementById("favorites-list");
+  const toggleButton = document.getElementById("toggle-favorites");
+
+  if (favoritesVisible) {
+    favoritesList.style.display = "block";
+    toggleButton.textContent = "お気に入りを非表示";
   } else {
-    icon.classList.remove("not-favorite");
-    icon.classList.add("favorite");
-    updateFavoriteInStorage(id, true);
+    favoritesList.style.display = "none";
+    toggleButton.textContent = "お気に入りを表示";
   }
 }
+
+// ボタンの状態を更新（お気に入りが空の場合は非表示に）
+function updateToggleButton(favorites) {
+  const toggleButton = document.getElementById("toggle-favorites");
+  if (Object.keys(favorites).length === 0) {
+    toggleButton.style.display = "none"; // ボタンを非表示
+  } else {
+    toggleButton.style.display = "inline-block"; // ボタンを表示
+  }
+}
+
+
+
+
+
+
+
+
+
 
 // ローカルストレージにお気に入り状態を保存
 function updateFavoriteInStorage(id, isFavorite) {
@@ -49,36 +80,9 @@ function restoreFavorites() {
   }
 }
 
-// 「お気に入りのみ」をトグル
-function toggleFavoriteFilter() {
-  showOnlyFavorites = !showOnlyFavorites;
-  const filterButton = document.getElementById("favorite-filter");
 
-  if (showOnlyFavorites) {
-    filterButton.textContent = "すべて表示";
-    applyFavoriteFilter();
-  } else {
-    filterButton.textContent = "お気に入りのみ";
-    showAllItems();
-  }
-}
 
-// お気に入りフィルタを適用
-function applyFavoriteFilter() {
-  const favorites = JSON.parse(localStorage.getItem("favorites")) || {};
-  const menuItems = document.querySelectorAll(".menu-item");
 
-  menuItems.forEach(item => {
-    const favoriteIcon = item.querySelector(".favorite-icon");
-    const id = favoriteIcon.getAttribute("data-id");
-
-    if (favorites[id]) {
-      item.style.display = "block";
-    } else {
-      item.style.display = "none";
-    }
-  });
-}
 
 // すべての項目を表示
 function showAllItems() {
@@ -88,23 +92,12 @@ function showAllItems() {
   });
 }
 
-// 検索バーのフィルタリング
-function filterBySearch() {
-  const searchText = document.getElementById("search-bar").value.toLowerCase();
-  const menuItems = document.querySelectorAll(".menu-item");
 
-  menuItems.forEach(item => {
-    const menuText = item.querySelector(".menu-text").textContent.toLowerCase();
 
-    if (menuText.includes(searchText)) {
-      item.style.display = "block";
-    } else {
-      item.style.display = "none";
-    }
-  });
 
-  // 「お気に入りのみ」が有効の場合は再適用
-  if (showOnlyFavorites) {
-    applyFavoriteFilter();
-  }
+
+// メニューの表示・非表示を切り替える関数
+function toggleMenu() {
+  const menu = document.getElementById('menu_bar');
+  menu.classList.toggle('active');
 }
