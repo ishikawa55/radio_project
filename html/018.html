@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../css/play.css" rel="stylesheet">
+  <title>018</title>
+</head>
+<body>
+  <div class="container">
+    <h1>くりぃむANN第18回</h1>
+    <audio id="audio-player" controls>
+      <source src="../audio/018.mp3" type="audio/mpeg">
+      お使いのブラウザは audio タグをサポートしていません。
+    </audio>
+    <input type="range" id="seek-bar" min="0" max="100" value="0">
+    <p id="current-time">再生時間: 0:00</p>
+
+    <!-- テキストエリアとボタンを追加 -->
+    <div class="jump-container">
+      <input type="text" id="time-input" placeholder="例: 00:35" />
+      <button id="jump-button">指定時間へジャンプ</button>
+    </div>
+  </div>
+
+  <button class="menu-item" onclick="location.href='../index.html'">
+    <span class="menu-text">Top</span>
+  </button>
+
+  <script>
+    // 要素を取得
+    const audioPlayer = document.getElementById("audio-player");
+    const seekBar = document.getElementById("seek-bar");
+    const currentTimeDisplay = document.getElementById("current-time");
+    const timeInput = document.getElementById("time-input");
+    const jumpButton = document.getElementById("jump-button");
+
+    // 音声のメタデータが読み込まれたらシークバーの最大値を設定
+    audioPlayer.addEventListener("loadedmetadata", () => {
+      seekBar.max = audioPlayer.duration;
+    });
+
+    // シークバーをドラッグして指定時間にジャンプ
+    seekBar.addEventListener("input", () => {
+      audioPlayer.currentTime = seekBar.value;
+    });
+
+    // 音声の再生時間に応じてシークバーを更新
+    audioPlayer.addEventListener("timeupdate", () => {
+      seekBar.value = audioPlayer.currentTime;
+      const minutes = Math.floor(audioPlayer.currentTime / 60);
+      const seconds = Math.floor(audioPlayer.currentTime % 60).toString().padStart(2, "0");
+      currentTimeDisplay.textContent = `再生時間: ${minutes}:${seconds}`;
+    });
+
+    // 入力時間から指定位置へジャンプ
+    jumpButton.addEventListener("click", () => {
+      const time = timeInput.value.trim(); // 入力値を取得
+      const match = time.match(/^(\d+):([0-5]?\d)$/); // 分と秒を正規表現で解析
+      if (match) {
+        const minutes = parseInt(match[1], 10);
+        const seconds = parseInt(match[2], 10);
+        const jumpTime = minutes * 60 + seconds; // 秒に変換
+        if (jumpTime <= audioPlayer.duration) {
+          audioPlayer.currentTime = jumpTime; // 音声の再生位置を設定
+        } else {
+          alert("指定時間が音声の長さを超えています。");
+        }
+      } else {
+        alert("正しい形式で時間を入力してください (例: 00:35)。");
+      }
+    });
+  </script>
+</body>
+</html>
